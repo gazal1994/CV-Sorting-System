@@ -1,13 +1,13 @@
 """Seed script to initialize database with sample data"""
 
-import sys
 import os
+import sys
 
 # Add parent directory to path
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app.database import SessionLocal, init_db
-from app.models import User, Job
+from app.models import Job, User
 from app.utils.auth import get_password_hash
 
 

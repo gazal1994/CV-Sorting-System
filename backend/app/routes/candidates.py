@@ -3,16 +3,17 @@
 import os
 import shutil
 from typing import List
-from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
+
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
 from sqlalchemy.orm import Session
 
+from app.config import settings
 from app.database import get_db
+from app.models import Candidate, User
 from app.schemas import CandidateResponse, CandidateUpdate, UploadResponse
-from app.models import User, Candidate
+from app.services.audit_service import AuditService
 from app.utils.auth import get_current_user
 from app.utils.cv_parser import CVParser
-from app.config import settings
-from app.services.audit_service import AuditService
 
 router = APIRouter(prefix="/api/candidates", tags=["Candidates"])
 

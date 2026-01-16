@@ -1,14 +1,15 @@
 """User management routes (admin only)"""
 
 from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.schemas import UserCreate, UserUpdate, UserResponse
 from app.models import User
-from app.utils.auth import get_current_admin_user, get_password_hash
+from app.schemas import UserCreate, UserResponse, UserUpdate
 from app.services.audit_service import AuditService
+from app.utils.auth import get_current_admin_user, get_password_hash
 
 router = APIRouter(prefix="/api/users", tags=["Users"])
 

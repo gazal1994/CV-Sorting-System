@@ -5,17 +5,18 @@ These tests verify complete user workflows through the system.
 Tests use pytest and httpx for async HTTP testing.
 """
 
-import pytest
 import os
 import sys
-from httpx import AsyncClient
 from pathlib import Path
+
+import pytest
+from httpx import AsyncClient
 
 # Add backend to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
-from app.main import app
 from app.database import Base, engine
+from app.main import app
 
 
 @pytest.fixture(scope="module", autouse=True)

@@ -1,7 +1,8 @@
 """Unit tests for authentication utilities"""
 
 import pytest
-from app.utils.auth import verify_password, get_password_hash, create_access_token
+
+from app.utils.auth import create_access_token, get_password_hash, verify_password
 
 
 def test_password_hashing():

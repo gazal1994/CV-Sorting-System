@@ -1,15 +1,16 @@
 """Matching and ranking routes"""
 
 from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.schemas import RankingRequest, RankingResponse, CandidateScoreResponse
-from app.models import User, Job, CandidateScore
-from app.utils.auth import get_current_user
-from app.services.matching_service import MatchingService
+from app.models import CandidateScore, Job, User
+from app.schemas import CandidateScoreResponse, RankingRequest, RankingResponse
 from app.services.audit_service import AuditService
+from app.services.matching_service import MatchingService
+from app.utils.auth import get_current_user
 
 router = APIRouter(prefix="/api/matching", tags=["Matching & Ranking"])
 

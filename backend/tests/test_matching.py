@@ -1,9 +1,11 @@
 """Unit tests for matching service"""
 
-import pytest
 from unittest.mock import Mock
-from app.services.matching_service import MatchingService
+
+import pytest
+
 from app.models import Candidate, Job
+from app.services.matching_service import MatchingService
 
 
 @pytest.fixture

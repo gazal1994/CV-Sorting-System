@@ -1,8 +1,10 @@
 """Matching and ranking service for candidates against job positions"""
 
-from typing import List, Dict
+from typing import Dict, List
+
 from sqlalchemy.orm import Session
-from app.models import Candidate, Job, CandidateScore
+
+from app.models import Candidate, CandidateScore, Job
 
 
 class MatchingService:

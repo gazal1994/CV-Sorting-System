@@ -6,10 +6,11 @@ import sys
 # Add backend to path
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
+from datetime import datetime
+
 from app.database import SessionLocal
 from app.models import Candidate, Job, User
 from app.utils.cv_parser import CVParser
-from datetime import datetime
 
 
 def add_sample_cvs():

@@ -1,20 +1,21 @@
 """Reports and analytics routes"""
 
-from typing import List
-from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
-from sqlalchemy import func
 from collections import Counter
+from typing import List
+
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import func
+from sqlalchemy.orm import Session
 
 from app.database import get_db
+from app.models import AuditLog, Candidate, CandidateScore, Job, User
 from app.schemas import (
-    SkillsFrequencyReport,
-    SkillFrequency,
-    PipelineStats,
     AuditLogResponse,
+    PipelineStats,
+    SkillFrequency,
+    SkillsFrequencyReport,
 )
-from app.models import User, Job, Candidate, CandidateScore, AuditLog
-from app.utils.auth import get_current_user, get_current_admin_user
+from app.utils.auth import get_current_admin_user, get_current_user
 
 router = APIRouter(prefix="/api/reports", tags=["Reports"])
 

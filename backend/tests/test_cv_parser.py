@@ -1,7 +1,9 @@
 """Unit tests for CV parser"""
 
-import pytest
 import os
+
+import pytest
+
 from app.utils.cv_parser import CVParser
 
 

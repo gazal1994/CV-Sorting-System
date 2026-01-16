@@ -3,10 +3,11 @@ Jira Project Setup Script for CV Sorting & Candidate Recommendation System
 Automatically creates Epics, User Stories, Subtasks, and Sprints in Jira
 """
 
-import requests
 import json
-from datetime import datetime, timedelta
 import time
+from datetime import datetime, timedelta
+
+import requests
 
 
 class JiraSetup:

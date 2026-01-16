@@ -1,11 +1,12 @@
 """CV parsing utilities - Extract information from PDF, DOCX, and TXT files"""
 
-import re
-import os
-from typing import Dict, List, Optional, Tuple
-import PyPDF2
-import docx
 import json
+import os
+import re
+from typing import Dict, List, Optional, Tuple
+
+import docx
+import PyPDF2
 
 
 class CVParser:

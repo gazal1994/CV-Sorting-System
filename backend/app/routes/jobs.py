@@ -1,14 +1,15 @@
 """Job position management routes"""
 
 from typing import List
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from app.database import get_db
-from app.schemas import JobCreate, JobUpdate, JobResponse
-from app.models import User, Job
-from app.utils.auth import get_current_user
+from app.models import Job, User
+from app.schemas import JobCreate, JobResponse, JobUpdate
 from app.services.audit_service import AuditService
+from app.utils.auth import get_current_user
 
 router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
 

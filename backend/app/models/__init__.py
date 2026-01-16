@@ -1,20 +1,22 @@
 """Database models for the CV Sorting System"""
 
+from datetime import datetime
+
 from sqlalchemy import (
+    JSON,
+    Boolean,
     Column,
+    DateTime,
+    Float,
+    ForeignKey,
     Integer,
     String,
-    DateTime,
     Text,
-    ForeignKey,
-    Float,
-    Boolean,
-    JSON,
 )
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
+
 from app.database import Base
-from datetime import datetime
 
 
 class User(Base):
