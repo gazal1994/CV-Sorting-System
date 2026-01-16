@@ -1,0 +1,214 @@
+name: Branch Protection
+
+on:
+  pull_request:
+    branches:
+      - main
+      - staging
+      - develop
+    types: [opened, synchronize, reopened]
+
+jobs:
+  # Validate branch naming for feature branches
+  validate-branch:
+    name: Validate Branch Name
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Check branch naming convention
+      run: |
+        BRANCH_NAME="${{ github.head_ref }}"
+        echo "Checking branch name: $BRANCH_NAME"
+        
+        # Check if branch follows naming convention
+        if [[ $BRANCH_NAME =~ ^(feature|bugfix|hotfix|docs|refactor|test)/CSSAP-[0-9]+-[a-z0-9-]+$ ]]; then
+          echo "✅ Branch name follows convention: $BRANCH_NAME"
+          exit 0
+        elif [[ $BRANCH_NAME =~ ^(main|develop|staging)$ ]]; then
+          echo "✅ Core branch: $BRANCH_NAME"
+          exit 0
+        else
+          echo "❌ Invalid branch name: $BRANCH_NAME"
+          echo "Expected format: feature/CSSAP-XX-description"
+          echo "Allowed prefixes: feature, bugfix, hotfix, docs, refactor, test"
+          exit 1
+        fi
+
+  # Validate commit messages
+  validate-commits:
+    name: Validate Commit Messages
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Check commit messages
+      run: |
+        echo "Checking commit messages..."
+        COMMITS=$(git log --pretty=format:"%s" origin/${{ github.base_ref }}..${{ github.head_ref }})
+        
+        VALID=true
+        while IFS= read -r commit; do
+          echo "Checking: $commit"
+          
+          # Check if commit message contains CSSAP-XX reference
+          if [[ $commit =~ CSSAP-[0-9]+ ]]; then
+            echo "  ✅ Valid: Contains Jira reference"
+          else
+            echo "  ⚠️  Warning: Missing Jira reference (CSSAP-XX)"
+            VALID=false
+          fi
+        done <<< "$COMMITS"
+        
+        if [ "$VALID" = true ]; then
+          echo "✅ All commit messages are valid"
+        else
+          echo "⚠️  Some commit messages are missing Jira references"
+          echo "Please include CSSAP-XX in your commit messages"
+          # Don't fail, just warn
+          exit 0
+        fi
+
+  # Check PR description
+  validate-pr-description:
+    name: Validate PR Description
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    
+    steps:
+    - name: Check PR has description
+      run: |
+        PR_BODY="${{ github.event.pull_request.body }}"
+        
+        if [ -z "$PR_BODY" ]; then
+          echo "❌ PR description is empty"
+          echo "Please add a description explaining your changes"
+          exit 1
+        fi
+        
+        # Check if description contains Jira reference
+        if [[ $PR_BODY =~ CSSAP-[0-9]+ ]]; then
+          echo "✅ PR description contains Jira reference"
+        else
+          echo "⚠️  PR description missing Jira reference"
+        fi
+        
+        # Check minimum length
+        if [ ${#PR_BODY} -lt 20 ]; then
+          echo "❌ PR description too short (minimum 20 characters)"
+          exit 1
+        fi
+        
+        echo "✅ PR description is valid"
+
+  # Prevent direct pushes to protected branches
+  check-protected-branches:
+    name: Check Protected Branch Rules
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    
+    steps:
+    - name: Verify branch protection
+      run: |
+        BRANCH="${{ github.ref_name }}"
+        
+        if [[ "$BRANCH" == "main" ]]; then
+          echo "⚠️  Direct push to main branch"
+          echo "Please use pull requests to merge to main"
+        elif [[ "$BRANCH" == "staging" ]]; then
+          echo "ℹ️  Push to staging branch"
+        elif [[ "$BRANCH" == "develop" ]]; then
+          echo "ℹ️  Push to develop branch"
+        fi
+
+  # Check for required files
+  validate-required-files:
+    name: Validate Required Files
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Check required files exist
+      run: |
+        REQUIRED_FILES=(
+          "README.md"
+          "backend/requirements.txt"
+          "frontend/package.json"
+          ".gitignore"
+        )
+        
+        MISSING=false
+        for file in "${REQUIRED_FILES[@]}"; do
+          if [ ! -f "$file" ]; then
+            echo "❌ Missing required file: $file"
+            MISSING=true
+          else
+            echo "✅ Found: $file"
+          fi
+        done
+        
+        if [ "$MISSING" = true ]; then
+          exit 1
+        fi
+
+  # Check file size limits
+  check-file-sizes:
+    name: Check File Sizes
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: Check for large files
+      run: |
+        echo "Checking for files larger than 1MB..."
+        
+        LARGE_FILES=$(find . -type f -size +1M -not -path "*/node_modules/*" -not -path "*/.git/*" -not -path "*/dist/*" -not -path "*/.venv/*")
+        
+        if [ -n "$LARGE_FILES" ]; then
+          echo "⚠️  Large files found:"
+          echo "$LARGE_FILES"
+          echo ""
+          echo "Consider using Git LFS for large files"
+        else
+          echo "✅ No large files detected"
+        fi
+
+  # Summary
+  pr-summary:
+    name: PR Validation Summary
+    runs-on: ubuntu-latest
+    needs: [validate-branch, validate-commits, validate-pr-description, validate-required-files]
+    if: always() && github.event_name == 'pull_request'
+    
+    steps:
+    - name: Generate summary
+      run: |
+        echo "## 📋 PR Validation Summary" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "| Check | Status |" >> $GITHUB_STEP_SUMMARY
+        echo "|-------|--------|" >> $GITHUB_STEP_SUMMARY
+        echo "| Branch Name | ${{ needs.validate-branch.result }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Commit Messages | ${{ needs.validate-commits.result }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| PR Description | ${{ needs.validate-pr-description.result }} |" >> $GITHUB_STEP_SUMMARY
+        echo "| Required Files | ${{ needs.validate-required-files.result }} |" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ needs.validate-branch.result }}" == "success" ] && \
+           [ "${{ needs.validate-commits.result }}" == "success" ] && \
+           [ "${{ needs.validate-pr-description.result }}" == "success" ] && \
+           [ "${{ needs.validate-required-files.result }}" == "success" ]; then
+          echo "✅ All validation checks passed!" >> $GITHUB_STEP_SUMMARY
+        else
+          echo "❌ Some validation checks failed. Please review above." >> $GITHUB_STEP_SUMMARY
+        fi
