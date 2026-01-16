@@ -1,0 +1,175 @@
+# SUBTASK CREATION TEMPLATE
+Copy-paste these for each User Story
+
+========================================
+US-1 SUBTASKS (Authentication)
+========================================
+
+Subtask 1: US-1.1: Frontend - Login UI
+Description: Create login form component with email/password fields, form validation, error message display, remember me checkbox, loading states
+Label: Frontend
+
+Subtask 2: US-1.2: Backend - Auth Endpoints
+Description: Implement POST /auth/login and /auth/logout endpoints, JWT token generation, password verification with bcrypt, session management, error handling
+Label: Backend
+
+Subtask 3: US-1.3: Testing - Auth Tests
+Description: Write unit tests for auth logic, integration tests for login/logout endpoints, test role-based access control, test session expiry, security vulnerability testing
+Label: Testing
+
+========================================
+US-2 SUBTASKS (CV Upload)
+========================================
+
+Subtask 1: US-2.1: Frontend - File Upload Component
+Description: Create drag-and-drop upload zone, file type validation (PDF/TXT/DOCX), progress bar display, upload queue management, error handling UI
+Label: Frontend
+
+Subtask 2: US-2.2: Backend - CV Upload Endpoint
+Description: Implement POST /candidates/upload-cv endpoint, file storage logic in storage/cvs/, file type validation, batch processing, database record creation
+Label: Backend
+
+Subtask 3: US-2.3: Testing - Upload Tests
+Description: Test valid file uploads for all formats, test invalid file type rejection, test file size limits, test concurrent uploads, test error scenarios
+Label: Testing
+
+========================================
+US-3 SUBTASKS (CV Parsing)
+========================================
+
+Subtask 1: US-3.1: Frontend - Display Parsed Data
+Description: Create candidate profile card component, display skills as tags, show experience timeline, education section layout, allow editing parsed data
+Label: Frontend
+
+Subtask 2: US-3.2: Backend - CV Parsing Logic
+Description: Implement text extraction from PDF/DOCX/TXT, NLP-based skills extraction, experience years calculation, education parsing, skills taxonomy matching
+Label: Backend
+
+Subtask 3: US-3.3: Testing - Parser Accuracy Tests
+Description: Test with 5 sample CVs, validate extraction accuracy >85%, test edge cases (missing data), performance testing <5 sec, compare with manual parsing
+Label: Testing
+
+========================================
+US-4 SUBTASKS (Job Creation)
+========================================
+
+Subtask 1: US-4.1: Frontend - Job Creation Form
+Description: Build job details form (title/description/location), skills multi-select dropdown, experience years dropdown, education requirement field, form validation, success message
+Label: Frontend
+
+Subtask 2: US-4.2: Backend - Job Management API
+Description: Implement POST /jobs endpoint, GET /jobs list endpoint, PUT /jobs/{id} update endpoint, DELETE /jobs/{id} endpoint, database models and relationships
+Label: Backend
+
+Subtask 3: US-4.3: Testing - Job Creation Tests
+Description: Test full CRUD operations, validate required fields enforcement, test skill associations, test data persistence, test authorization (recruiter only)
+Label: Testing
+
+========================================
+US-5 SUBTASKS (Ranking)
+========================================
+
+Subtask 1: US-5.1: Frontend - Ranking Display
+Description: Create ranked candidate list view, display match score badges/percentages, show skills comparison table, add filter/sort options, implement PDF export
+Label: Frontend
+
+Subtask 2: US-5.2: Backend - Matching Algorithm
+Description: Calculate skill match score with weights, factor in experience level, consider education requirements, compute overall score 0-100%, return ranked list with explanations
+Label: Backend
+
+Subtask 3: US-5.3: Testing - Algorithm Validation
+Description: Test scoring logic with known examples, validate ranking order correctness, test edge cases (no matches, perfect match), performance test <3 sec, accuracy validation
+Label: Testing
+
+========================================
+US-6 SUBTASKS (Skills Report)
+========================================
+
+Subtask 1: US-6.1: Frontend - Skills Chart Component
+Description: Create bar chart visualization using Chart.js/D3, add date range picker, job position filter dropdown, export to PDF/CSV buttons, responsive design
+Label: Frontend
+
+Subtask 2: US-6.2: Backend - Skills Analytics Endpoint
+Description: Implement GET /reports/top-skills endpoint, aggregate skills data from all candidates, filter by date range and job, return JSON data, implement PDF generation
+Label: Backend
+
+Subtask 3: US-6.3: Testing - Report Data Tests
+Description: Validate calculation accuracy, test date range filtering, test job filtering, test export functionality, performance testing <5 seconds
+Label: Testing
+
+========================================
+US-7 SUBTASKS (Pipeline Stats)
+========================================
+
+Subtask 1: US-7.1: Frontend - Dashboard Metrics
+Description: Create KPI cards (total candidates, by stage), display funnel chart visualization, show conversion rate percentages, add date range filter, export button
+Label: Frontend
+
+Subtask 2: US-7.2: Backend - Pipeline Analytics
+Description: Implement GET /reports/pipeline-stats endpoint, calculate candidates per stage, compute conversion rates, calculate average time-to-hire, return aggregated data
+Label: Backend
+
+Subtask 3: US-7.3: Testing - Pipeline Metrics Tests
+Description: Validate stage count calculations, test stage transition tracking, test date filtering, verify conversion rate math, accuracy validation
+Label: Testing
+
+========================================
+US-8 SUBTASKS (Audit Logs)
+========================================
+
+Subtask 1: US-8.1: Frontend - Audit Log Viewer
+Description: Create table with sortable columns (timestamp/user/action), add filter controls (user/date/action type), search box, pagination (50 per page), CSV export button
+Label: Frontend
+
+Subtask 2: US-8.2: Backend - Audit Log Retrieval
+Description: Implement GET /audit/logs endpoint with pagination, filter by user/date/action parameters, CSV export endpoint, query optimization for performance
+Label: Backend
+
+Subtask 3: US-8.3: Testing - Audit Logging Tests
+Description: Verify all CRUD actions are logged, test filter functionality, test pagination, test CSV export, verify log data completeness
+Label: Testing
+
+========================================
+US-9 SUBTASKS (Dashboard)
+========================================
+
+Subtask 1: US-9.1: Frontend - Dashboard Layout
+Description: Design responsive grid layout, create widget components (recent uploads/jobs/rankings), add quick action buttons, display recent activity feed, responsive CSS
+Label: Frontend
+
+Subtask 2: US-9.2: Backend - Dashboard Data API
+Description: Implement GET /dashboard endpoint, aggregate recent activities from multiple tables, return counts and summaries, optimize queries for performance <2 sec
+Label: Backend
+
+Subtask 3: US-9.3: Testing - UI/UX Tests
+Description: Test responsiveness on mobile/tablet/desktop, test loading performance <2 sec, conduct usability testing, cross-browser testing (Chrome/Firefox/Safari)
+Label: Testing
+
+========================================
+US-10 SUBTASKS (User Management)
+========================================
+
+Subtask 1: US-10.1: Frontend - User Management UI
+Description: Create user list table with actions, build create user form modal, edit user modal, role selection dropdown, deactivate confirmation dialog
+Label: Frontend
+
+Subtask 2: US-10.2: Backend - User Management Endpoints
+Description: Implement GET /users list endpoint, POST /users create endpoint, PUT /users/{id} update endpoint, DELETE /users/{id} deactivate endpoint, enforce admin-only authorization
+Label: Backend
+
+Subtask 3: US-10.3: Testing - Authorization Tests
+Description: Test role-based access (admin only), verify RECRUITER cannot access, test full CRUD operations, security testing for unauthorized access, test password generation
+Label: Testing
+
+========================================
+END OF SUBTASKS TEMPLATE
+========================================
+
+INSTRUCTIONS:
+1. Copy each subtask block
+2. Create subtask in Jira under corresponding User Story
+3. Paste Summary and Description
+4. Add Label
+5. Repeat for all 10 stories (30 subtasks total)
+
+Time: ~1-2 minutes per subtask = 30-60 minutes total

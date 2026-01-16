@@ -1,0 +1,60 @@
+David Kim
+david.kim@developer.com | 555-111-2222
+
+PROFESSIONAL OBJECTIVE
+Junior Full Stack Developer with 2 years of experience seeking to grow technical skills in modern web development and contribute to innovative projects.
+
+SKILLS SUMMARY
+Languages: JavaScript, Python, HTML, CSS
+Frontend: React, Vue.js, Bootstrap
+Backend: Node.js, Express.js, Flask
+Database: MySQL, MongoDB
+Tools: Git, VS Code, npm, Docker (beginner level)
+Methodologies: Agile, Scrum
+
+EMPLOYMENT HISTORY
+
+Junior Full Stack Developer
+StartupHub Technologies
+September 2022 - Present (1.5 years)
+• Developing features for company's main web application
+• Working with React on frontend and Node.js on backend
+• Writing unit tests and participating in code reviews
+• Learning Docker and containerization concepts
+• Collaborating with senior developers on complex features
+
+Web Development Intern
+Digital Agency Pro
+June 2021 - August 2022 (1 year+)
+• Built responsive websites using HTML, CSS, and JavaScript
+• Assisted in React component development
+• Fixed bugs and improved user interface
+• Learned version control with Git and GitHub
+• Gained exposure to Agile development process
+
+Freelance Web Developer
+Self-Employed
+January 2021 - May 2021 (4 months)
+• Created small business websites
+• Worked with WordPress and custom JavaScript
+• Communicated with clients to understand requirements
+
+EDUCATION
+Bachelor of Science in Computer Science
+City University
+Graduated: 2021
+Relevant Coursework: Data Structures, Web Development, Databases
+
+ONLINE CERTIFICATIONS
+- FreeCodeCamp Responsive Web Design
+- Udemy: Complete Node.js Developer Course
+- Coursera: React Specialization
+
+LANGUAGES
+English (Fluent)
+Korean (Native)
+
+PERSONAL INTERESTS
+Open source contribution
+Continuous learning
+Tech meetups and hackathons

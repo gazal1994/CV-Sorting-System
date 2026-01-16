@@ -1,0 +1,40 @@
+MICHAEL CHEN
+Python Backend Developer
+
+Contact: michael.chen@devmail.com
+Phone: (555) 234-5678
+
+ABOUT ME
+Experienced Python developer with 5 years of experience building scalable backend systems and APIs. Passionate about clean code, test-driven development, and cloud architecture.
+
+WORK HISTORY
+
+Backend Developer @ CloudTech Systems (2021 - Present)
+- Design and implement microservices using Python and FastAPI
+- Work with PostgreSQL, Redis, and Elasticsearch
+- Deploy applications on AWS using Docker and Kubernetes
+- Write comprehensive unit and integration tests with pytest
+- Collaborate with frontend team for API integration
+
+Python Developer @ DataFlow Inc (2019 - 2021)
+- Developed data processing pipelines using Python and Apache Airflow
+- Created RESTful APIs with Flask
+- Optimized database performance and queries
+- Implemented authentication and authorization with JWT
+
+EDUCATION
+Master of Computer Science, Stanford University (2019)
+Bachelor of Engineering, UC San Diego (2017)
+
+SKILLS
+Core: Python, FastAPI, Flask, Django
+Databases: PostgreSQL, MongoDB, Redis, Elasticsearch
+DevOps: Docker, Kubernetes, AWS, CI/CD, Git
+Testing: pytest, unittest, TDD
+Other: RESTful API Design, Microservices, Linux, SQL
+
+SOFT SKILLS
+Team collaboration, Analytical thinking, Documentation, Code review
+
+LANGUAGES
+English, Chinese (Mandarin)

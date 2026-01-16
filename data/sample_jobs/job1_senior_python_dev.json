@@ -1,0 +1,8 @@
+{
+  "title": "Senior Python Developer",
+  "description": "We are looking for an experienced Python developer to join our backend team. You will work on building scalable APIs and microservices using FastAPI and PostgreSQL.",
+  "required_skills": ["Python", "FastAPI", "PostgreSQL", "Docker"],
+  "nice_to_have": ["Kubernetes", "AWS", "Redis", "GraphQL"],
+  "minimum_experience": 5.0,
+  "keywords": ["backend", "API", "microservices", "scalable", "cloud"]
+}

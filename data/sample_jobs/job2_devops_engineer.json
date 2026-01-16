@@ -1,0 +1,8 @@
+{
+  "title": "DevOps Engineer",
+  "description": "Join our DevOps team to manage cloud infrastructure and CI/CD pipelines. AWS and Kubernetes expertise required. You will work on automating deployment processes and ensuring high availability of our systems.",
+  "required_skills": ["Docker", "Kubernetes", "AWS", "Terraform", "CI/CD"],
+  "nice_to_have": ["Python", "Ansible", "Prometheus", "Grafana", "Jenkins"],
+  "minimum_experience": 4.0,
+  "keywords": ["devops", "cloud", "infrastructure", "automation", "deployment", "monitoring"]
+}

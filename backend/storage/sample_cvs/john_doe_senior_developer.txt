@@ -1,0 +1,49 @@
+JOHN DOE
+Senior Software Developer
+
+Email: john.doe@email.com
+Phone: +1-555-123-4567
+Location: San Francisco, CA
+
+PROFESSIONAL SUMMARY
+Highly skilled Senior Software Developer with 8 years of experience in full-stack development, specializing in Python, JavaScript, and cloud technologies. Proven track record of delivering scalable applications and leading development teams.
+
+WORK EXPERIENCE
+
+Senior Software Developer | Tech Solutions Inc. | 2020 - Present
+- Led development of microservices architecture using Python and Docker
+- Implemented CI/CD pipelines with GitHub Actions
+- Mentored junior developers and conducted code reviews
+- Reduced application response time by 40% through optimization
+
+Software Developer | StartupCo | 2016 - 2020
+- Developed RESTful APIs using FastAPI and Flask
+- Built responsive frontends with React and TypeScript
+- Worked with PostgreSQL and MongoDB databases
+- Collaborated in agile teams using Scrum methodology
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of California, Berkeley | 2012 - 2016
+
+TECHNICAL SKILLS
+Programming Languages: Python, JavaScript, TypeScript, Java, SQL
+Frameworks: FastAPI, Flask, React, Node.js, Django
+Databases: PostgreSQL, MongoDB, Redis, MySQL
+DevOps: Docker, Kubernetes, GitHub Actions, AWS, Git
+Tools: VS Code, Jira, Postman, Linux
+
+SOFT SKILLS
+- Leadership
+- Problem Solving
+- Communication
+- Team Collaboration
+- Agile Methodologies
+
+LANGUAGES
+- English (Native)
+- Spanish (Intermediate)
+
+CERTIFICATIONS
+- AWS Certified Solutions Architect
+- Certified Scrum Master (CSM)

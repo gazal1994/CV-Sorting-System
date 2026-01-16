@@ -1,0 +1,47 @@
+John Smith
+Email: john.smith@email.com
+Phone: +1-555-0101
+LinkedIn: linkedin.com/in/johnsmith
+
+PROFESSIONAL SUMMARY
+Senior Software Engineer with 8 years of experience in backend development, specializing in Python and microservices architecture. Proven track record of building scalable APIs and leading development teams.
+
+TECHNICAL SKILLS
+- Programming Languages: Python, JavaScript, TypeScript, Go
+- Frameworks: FastAPI, Django, Flask, React
+- Databases: PostgreSQL, MongoDB, Redis
+- DevOps: Docker, Kubernetes, AWS, CI/CD, Jenkins
+- Other: REST API, GraphQL, Microservices, Git, Agile, Scrum
+
+PROFESSIONAL EXPERIENCE
+
+Senior Backend Engineer | Tech Solutions Inc.
+2020 - Present
+- Led development of microservices architecture serving 1M+ users
+- Designed and implemented RESTful APIs using FastAPI
+- Mentored team of 5 junior developers
+- Improved system performance by 40% through optimization
+
+Software Engineer | Digital Innovations
+2018 - 2020
+- Developed backend services using Django and PostgreSQL
+- Implemented CI/CD pipelines using Jenkins and Docker
+- Collaborated with frontend team on API integration
+- Participated in Agile ceremonies and sprint planning
+
+Python Developer | StartupXYZ
+2016 - 2018
+- Built data processing pipelines using Python and Pandas
+- Developed REST APIs for mobile applications
+- Worked with MongoDB for NoSQL data storage
+
+EDUCATION
+Bachelor of Science in Computer Science
+University of Technology, 2016
+
+LANGUAGES
+English (Native), Spanish (Fluent)
+
+CERTIFICATIONS
+- AWS Certified Developer Associate
+- Certified Scrum Master

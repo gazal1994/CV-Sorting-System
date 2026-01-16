@@ -1,0 +1,42 @@
+EMMA RODRIGUEZ
+Junior Frontend Developer
+
+emma.rodriguez@webmail.com | 555-345-6789
+
+SUMMARY
+Enthusiastic junior frontend developer with 2 years of experience creating responsive web applications. Strong foundation in React, JavaScript, and modern CSS frameworks.
+
+EXPERIENCE
+
+Junior Frontend Developer | WebApps Studio
+January 2022 - Present (2 years)
+• Build user interfaces with React and TypeScript
+• Style applications using Tailwind CSS and styled-components
+• Integrate with backend APIs using Axios and Fetch
+• Participate in code reviews and sprint ceremonies
+• Collaborate with UX designers to implement designs
+
+Intern Developer | TechStart Incubator
+Summer 2021 (6 months)
+• Created landing pages with HTML, CSS, and JavaScript
+• Learned React fundamentals and component-based architecture
+• Fixed bugs and implemented feature requests
+• Worked with Git for version control
+
+EDUCATION
+Bachelor of Science in Web Development
+NYU, Graduated 2021
+
+TECHNICAL SKILLS
+Frontend: React, JavaScript, TypeScript, HTML5, CSS3
+Styling: Tailwind CSS, Bootstrap, Material-UI, Sass
+Tools: Git, GitHub, VS Code, Figma, Chrome DevTools
+State Management: React Hooks, Context API
+Others: RESTful APIs, Responsive Design, Accessibility
+
+LANGUAGES
+English (Native)
+Spanish (Fluent)
+
+INTERESTS
+UI/UX Design, Open Source Contribution, Tech Blogging

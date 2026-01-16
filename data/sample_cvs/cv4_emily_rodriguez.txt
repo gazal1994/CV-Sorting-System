@@ -1,0 +1,62 @@
+Emily Rodriguez
+emily.rodriguez@datamail.com
+Phone: 555-999-1234
+
+SUMMARY
+Data Scientist with 4 years of experience in machine learning, statistical analysis, and data visualization. Specialized in Python, TensorFlow, and building predictive models.
+
+TECHNICAL SKILLS
+Programming: Python, R, SQL
+ML Frameworks: TensorFlow, PyTorch, Scikit-learn
+Data Tools: Pandas, NumPy, Matplotlib, Seaborn
+Big Data: Apache Spark, Hadoop
+Databases: PostgreSQL, MongoDB
+Cloud: AWS, GCP
+Other: Jupyter, Git, Docker
+
+WORK HISTORY
+
+Data Scientist | Analytics Corp
+March 2022 - Present
+→ Developed machine learning models for customer churn prediction
+→ Built recommendation systems using collaborative filtering
+→ Created data pipelines for real-time analytics
+→ Visualized insights using Python and Tableau
+→ Experience: 2 years in this role
+
+Junior Data Scientist | Data Insights Inc
+June 2020 - February 2022
+→ Performed statistical analysis on large datasets
+→ Built predictive models using scikit-learn
+→ Collaborated with business teams to define KPIs
+→ Experience: 1.5 years
+
+Data Analyst | Business Intelligence Co
+January 2019 - May 2020
+→ Created dashboards and reports using SQL and Python
+→ Analyzed customer behavior patterns
+→ Supported decision-making with data insights
+→ Experience: 1.5 years
+
+EDUCATION
+Master of Science in Data Science
+University of Data Analytics, 2018
+
+Bachelor of Science in Mathematics
+State University, 2016
+
+PROJECTS & PUBLICATIONS
+- Published paper on "Deep Learning for Time Series Forecasting"
+- Open source contributor to scikit-learn
+- Kaggle Competition: Top 5% in House Price Prediction
+
+LANGUAGES
+English (Fluent)
+Spanish (Native)
+Portuguese (Basic)
+
+ADDITIONAL INFORMATION
+Strong analytical and problem-solving skills
+Excellent communication abilities
+Agile and team collaboration experience
+Passion for continuous learning

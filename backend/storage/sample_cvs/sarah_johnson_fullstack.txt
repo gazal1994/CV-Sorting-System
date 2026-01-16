@@ -1,0 +1,41 @@
+SARAH JOHNSON
+Full Stack Engineer
+
+sarah.johnson@techmail.com | 555-987-6543 | New York, NY
+
+PROFESSIONAL EXPERIENCE
+
+Full Stack Engineer | Digital Innovations Corp
+September 2019 - Present (4 years)
+• Developed and maintained web applications using React, Node.js, and PostgreSQL
+• Implemented RESTful APIs and GraphQL services
+• Collaborated with cross-functional teams in agile environment
+• Optimized database queries improving performance by 35%
+
+Junior Developer | WebDev Solutions
+June 2017 - August 2019 (2 years)
+• Built responsive websites using HTML, CSS, JavaScript
+• Worked with WordPress and custom PHP applications
+• Participated in daily standups and sprint planning
+• Wrote unit tests and performed code reviews
+
+EDUCATION
+BS in Software Engineering
+Massachusetts Institute of Technology, 2017
+
+TECHNICAL SKILLS
+Languages: JavaScript, Python, TypeScript, HTML, CSS, SQL
+Frameworks & Libraries: React, Node.js, Express, Django, FastAPI
+Databases: PostgreSQL, MongoDB, MySQL, Redis
+Tools: Git, Docker, VS Code, Jira, Figma
+Cloud: AWS (EC2, S3, Lambda), Heroku
+
+ADDITIONAL SKILLS
+• Agile/Scrum methodology
+• Communication and teamwork
+• Problem-solving
+• Time management
+
+LANGUAGES
+English (Fluent)
+French (Basic)

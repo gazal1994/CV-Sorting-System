@@ -1,0 +1,61 @@
+MICHAEL CHEN
+michael.chen@techmail.com
++1 (555) 876-5432
+
+PROFESSIONAL PROFILE
+DevOps Engineer with 6 years of experience in cloud infrastructure, automation, and CI/CD pipelines. Expert in Docker, Kubernetes, and AWS services.
+
+CORE COMPETENCIES
+Cloud Platforms: AWS, Azure, GCP
+Containerization: Docker, Kubernetes
+Infrastructure as Code: Terraform, Ansible
+CI/CD: Jenkins, GitLab CI, GitHub Actions
+Programming: Python, Bash, Go
+Monitoring: Prometheus, Grafana, ELK Stack
+Version Control: Git, GitHub, GitLab
+
+PROFESSIONAL EXPERIENCE
+
+Senior DevOps Engineer
+Cloud Systems Corp | 2021 - Present (3 years)
+- Architected and maintained Kubernetes clusters for production workloads
+- Automated infrastructure deployment using Terraform and Ansible
+- Implemented comprehensive monitoring with Prometheus and Grafana
+- Reduced deployment time by 60% through CI/CD optimization
+- Managed AWS infrastructure serving millions of requests daily
+
+DevOps Engineer
+Infrastructure Solutions Ltd | 2018 - 2021 (3 years)
+- Built CI/CD pipelines using Jenkins and Docker
+- Migrated legacy applications to containerized environments
+- Implemented automated testing and deployment processes
+- Collaborated with development teams on infrastructure requirements
+- On-call rotation for production support
+
+Systems Administrator
+Tech Services Inc | 2017 - 2018 (1 year)
+- Maintained Linux servers and network infrastructure
+- Automated routine tasks using Bash and Python scripts
+- Monitored system performance and resolved issues
+
+EDUCATION
+Master of Science in Computer Engineering
+Tech Institute, 2017
+
+Bachelor of Science in Information Technology
+State College, 2015
+
+CERTIFICATIONS
+- AWS Certified Solutions Architect Professional
+- Certified Kubernetes Administrator (CKA)
+- HashiCorp Terraform Associate
+
+LANGUAGES
+English (Fluent)
+Chinese (Native)
+
+ADDITIONAL SKILLS
+Strong problem-solving abilities
+Team collaboration and communication
+Project management
+Agile methodologies
