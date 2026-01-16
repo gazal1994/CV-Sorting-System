@@ -66,7 +66,7 @@ jobs:
       continue-on-error: true
     
     - name: Upload Bandit report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: bandit-security-report
         path: backend/bandit-report.json
@@ -168,7 +168,7 @@ jobs:
       continue-on-error: true
     
     - name: Upload coverage HTML report
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: coverage-report
         path: backend/htmlcov/
