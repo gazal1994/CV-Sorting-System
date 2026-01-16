@@ -24,7 +24,9 @@ async def rank_candidates(
     # Verify job exists
     job = db.query(Job).filter(Job.id == request.job_id).first()
     if not job:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Job not found"
+        )
 
     # Run matching algorithm
     matching_service = MatchingService(db)
@@ -57,13 +59,17 @@ async def rank_candidates(
 
 @router.get("/results/{job_id}", response_model=List[CandidateScoreResponse])
 async def get_ranking_results(
-    job_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+    job_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """Get ranking results for a job"""
     # Verify job exists
     job = db.query(Job).filter(Job.id == job_id).first()
     if not job:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Job not found"
+        )
 
     # Get scores ordered by rank
     scores = (

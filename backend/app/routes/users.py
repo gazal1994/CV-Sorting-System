@@ -75,7 +75,9 @@ async def update_user(
     user = db.query(User).filter(User.id == user_id).first()
 
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
 
     # Update fields
     update_data = user_data.model_dump(exclude_unset=True)
@@ -87,7 +89,11 @@ async def update_user(
 
     # Log action
     AuditService.log_action(
-        db=db, action="user_updated", user_id=current_user.id, entity_type="user", entity_id=user.id
+        db=db,
+        action="user_updated",
+        user_id=current_user.id,
+        entity_type="user",
+        entity_id=user.id,
     )
 
     return user
@@ -102,20 +108,27 @@ async def delete_user(
     """Delete a user (admin only)"""
     if user_id == current_user.id:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="Cannot delete your own account"
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Cannot delete your own account",
         )
 
     user = db.query(User).filter(User.id == user_id).first()
 
     if not user:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="User not found"
+        )
 
     db.delete(user)
     db.commit()
 
     # Log action
     AuditService.log_action(
-        db=db, action="user_deleted", user_id=current_user.id, entity_type="user", entity_id=user_id
+        db=db,
+        action="user_deleted",
+        user_id=current_user.id,
+        entity_type="user",
+        entity_id=user_id,
     )
 
     return {"message": "User deleted successfully"}

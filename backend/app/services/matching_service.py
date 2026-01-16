@@ -19,7 +19,9 @@ class MatchingService:
             raise ValueError(f"Job {job_id} not found")
 
         # Get all successfully parsed candidates
-        candidates = self.db.query(Candidate).filter(Candidate.parse_status == "success").all()
+        candidates = (
+            self.db.query(Candidate).filter(Candidate.parse_status == "success").all()
+        )
 
         # Delete existing scores for this job
         self.db.query(CandidateScore).filter(CandidateScore.job_id == job_id).delete()

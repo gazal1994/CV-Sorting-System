@@ -33,7 +33,11 @@ async def upload_cvs(
             file_ext = file.filename.split(".")[-1].lower()
             if file_ext not in ["pdf", "docx", "txt"]:
                 results.append(
-                    {"filename": file.filename, "status": "error", "error": "Unsupported file type"}
+                    {
+                        "filename": file.filename,
+                        "status": "error",
+                        "error": "Unsupported file type",
+                    }
                 )
                 continue
 
@@ -78,7 +82,11 @@ async def upload_cvs(
                 )
 
                 results.append(
-                    {"filename": file.filename, "status": "success", "candidate_id": candidate.id}
+                    {
+                        "filename": file.filename,
+                        "status": "success",
+                        "candidate_id": candidate.id,
+                    }
                 )
             else:
                 # Create candidate with failed status
@@ -95,11 +103,17 @@ async def upload_cvs(
                 db.commit()
 
                 results.append(
-                    {"filename": file.filename, "status": "failed", "error": parse_result["error"]}
+                    {
+                        "filename": file.filename,
+                        "status": "failed",
+                        "error": parse_result["error"],
+                    }
                 )
 
         except Exception as e:
-            results.append({"filename": file.filename, "status": "error", "error": str(e)})
+            results.append(
+                {"filename": file.filename, "status": "error", "error": str(e)}
+            )
 
     return results
 
@@ -118,13 +132,17 @@ async def get_candidates(
 
 @router.get("/{candidate_id}", response_model=CandidateResponse)
 async def get_candidate(
-    candidate_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+    candidate_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """Get a specific candidate"""
     candidate = db.query(Candidate).filter(Candidate.id == candidate_id).first()
 
     if not candidate:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Candidate not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Candidate not found"
+        )
 
     return candidate
 
@@ -140,7 +158,9 @@ async def update_candidate(
     candidate = db.query(Candidate).filter(Candidate.id == candidate_id).first()
 
     if not candidate:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Candidate not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Candidate not found"
+        )
 
     # Update fields
     update_data = candidate_data.model_dump(exclude_unset=True)
@@ -164,13 +184,17 @@ async def update_candidate(
 
 @router.delete("/{candidate_id}")
 async def delete_candidate(
-    candidate_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+    candidate_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """Delete a candidate"""
     candidate = db.query(Candidate).filter(Candidate.id == candidate_id).first()
 
     if not candidate:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Candidate not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Candidate not found"
+        )
 
     # Delete file if exists
     if candidate.file_path and os.path.exists(candidate.file_path):

@@ -62,13 +62,17 @@ async def get_jobs(
 
 @router.get("/{job_id}", response_model=JobResponse)
 async def get_job(
-    job_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+    job_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """Get a specific job position"""
     job = db.query(Job).filter(Job.id == job_id).first()
 
     if not job:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Job not found"
+        )
 
     return job
 
@@ -84,7 +88,9 @@ async def update_job(
     job = db.query(Job).filter(Job.id == job_id).first()
 
     if not job:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Job not found"
+        )
 
     # Update fields
     update_data = job_data.model_dump(exclude_unset=True)
@@ -96,7 +102,11 @@ async def update_job(
 
     # Log action
     AuditService.log_action(
-        db=db, action="job_updated", user_id=current_user.id, entity_type="job", entity_id=job.id
+        db=db,
+        action="job_updated",
+        user_id=current_user.id,
+        entity_type="job",
+        entity_id=job.id,
     )
 
     return job
@@ -104,20 +114,28 @@ async def update_job(
 
 @router.delete("/{job_id}")
 async def delete_job(
-    job_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+    job_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """Delete a job position"""
     job = db.query(Job).filter(Job.id == job_id).first()
 
     if not job:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Job not found"
+        )
 
     db.delete(job)
     db.commit()
 
     # Log action
     AuditService.log_action(
-        db=db, action="job_deleted", user_id=current_user.id, entity_type="job", entity_id=job_id
+        db=db,
+        action="job_deleted",
+        user_id=current_user.id,
+        entity_type="job",
+        entity_id=job_id,
     )
 
     return {"message": "Job deleted successfully"}

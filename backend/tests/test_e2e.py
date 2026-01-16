@@ -91,7 +91,9 @@ class TestCompleteWorkflow:
                 "minimum_experience": 3,
                 "keywords": ["backend", "api", "database"],
             }
-            job_response = await client.post("/api/jobs", headers=headers, json=job_data)
+            job_response = await client.post(
+                "/api/jobs", headers=headers, json=job_data
+            )
             assert job_response.status_code == 200
             job = job_response.json()
             job_id = job["id"]
@@ -106,7 +108,9 @@ class TestCompleteWorkflow:
             assert ranking_result["ranked_count"] > 0
 
             # Step 6: Get ranking results
-            results_response = await client.get(f"/api/matching/results/{job_id}", headers=headers)
+            results_response = await client.get(
+                f"/api/matching/results/{job_id}", headers=headers
+            )
             assert results_response.status_code == 200
             results = results_response.json()
             assert len(results) > 0
@@ -129,14 +133,17 @@ class TestCompleteWorkflow:
         async with AsyncClient(app=app, base_url="http://test") as client:
             # Step 1: Login as admin
             login_response = await client.post(
-                "/api/auth/login", json={"email": "admin@example.com", "password": "admin123"}
+                "/api/auth/login",
+                json={"email": "admin@example.com", "password": "admin123"},
             )
             assert login_response.status_code == 200
             token = login_response.json()["access_token"]
             headers = {"Authorization": f"Bearer {token}"}
 
             # Step 2: Get skills frequency report
-            skills_response = await client.get("/api/reports/skills-frequency", headers=headers)
+            skills_response = await client.get(
+                "/api/reports/skills-frequency", headers=headers
+            )
             assert skills_response.status_code == 200
             skills_data = skills_response.json()
             assert isinstance(skills_data, list)
@@ -145,7 +152,9 @@ class TestCompleteWorkflow:
                 assert "count" in skills_data[0]
 
             # Step 3: Get pipeline statistics
-            pipeline_response = await client.get("/api/reports/pipeline-stats", headers=headers)
+            pipeline_response = await client.get(
+                "/api/reports/pipeline-stats", headers=headers
+            )
             assert pipeline_response.status_code == 200
             pipeline_data = pipeline_response.json()
             assert "total_candidates" in pipeline_data
@@ -154,7 +163,9 @@ class TestCompleteWorkflow:
             assert pipeline_data["total_candidates"] >= 0
 
             # Step 4: Get audit logs
-            audit_response = await client.get("/api/reports/audit-logs", headers=headers)
+            audit_response = await client.get(
+                "/api/reports/audit-logs", headers=headers
+            )
             assert audit_response.status_code == 200
             audit_logs = audit_response.json()
             assert isinstance(audit_logs, list)
@@ -196,7 +207,9 @@ class TestAccessControl:
             headers = {"Authorization": f"Bearer {token}"}
 
             # Try to access audit logs (should fail)
-            audit_response = await client.get("/api/reports/audit-logs", headers=headers)
+            audit_response = await client.get(
+                "/api/reports/audit-logs", headers=headers
+            )
             assert audit_response.status_code == 403
 
             print("✅ Access Control Test Passed: Recruiter blocked from audit logs")

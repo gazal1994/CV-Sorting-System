@@ -175,9 +175,9 @@ class CVParser:
         found_skills = []
 
         # Check against skills taxonomy
-        all_skills = self.skills_taxonomy.get("technical", []) + self.skills_taxonomy.get(
-            "soft", []
-        )
+        all_skills = self.skills_taxonomy.get(
+            "technical", []
+        ) + self.skills_taxonomy.get("soft", [])
 
         for skill in all_skills:
             if skill.lower() in text_lower:

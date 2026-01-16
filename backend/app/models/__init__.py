@@ -1,6 +1,16 @@
 """Database models for the CV Sorting System"""
 
-from sqlalchemy import Column, Integer, String, DateTime, Text, ForeignKey, Float, Boolean, JSON
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    DateTime,
+    Text,
+    ForeignKey,
+    Float,
+    Boolean,
+    JSON,
+)
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 from app.database import Base
@@ -22,7 +32,9 @@ class User(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     # Relationships
-    created_jobs = relationship("Job", back_populates="creator", foreign_keys="Job.created_by")
+    created_jobs = relationship(
+        "Job", back_populates="creator", foreign_keys="Job.created_by"
+    )
     audit_logs = relationship("AuditLog", back_populates="user")
 
 
@@ -72,8 +84,12 @@ class Job(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
 
     # Relationships
-    creator = relationship("User", back_populates="created_jobs", foreign_keys=[created_by])
-    scores = relationship("CandidateScore", back_populates="job", cascade="all, delete-orphan")
+    creator = relationship(
+        "User", back_populates="created_jobs", foreign_keys=[created_by]
+    )
+    scores = relationship(
+        "CandidateScore", back_populates="job", cascade="all, delete-orphan"
+    )
 
 
 class CandidateScore(Base):
@@ -113,7 +129,9 @@ class AuditLog(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=True)
-    action = Column(String(100), nullable=False)  # upload_cv, create_job, run_ranking, etc.
+    action = Column(
+        String(100), nullable=False
+    )  # upload_cv, create_job, run_ranking, etc.
     entity_type = Column(String(50))  # candidate, job, user
     entity_id = Column(Integer)
     details = Column(JSON)  # Additional context

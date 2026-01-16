@@ -7,7 +7,12 @@ from sqlalchemy import func
 from collections import Counter
 
 from app.database import get_db
-from app.schemas import SkillsFrequencyReport, SkillFrequency, PipelineStats, AuditLogResponse
+from app.schemas import (
+    SkillsFrequencyReport,
+    SkillFrequency,
+    PipelineStats,
+    AuditLogResponse,
+)
 from app.models import User, Job, Candidate, CandidateScore, AuditLog
 from app.utils.auth import get_current_user, get_current_admin_user
 
@@ -16,7 +21,9 @@ router = APIRouter(prefix="/api/reports", tags=["Reports"])
 
 @router.get("/skills-frequency/{job_id}", response_model=SkillsFrequencyReport)
 async def get_skills_frequency(
-    job_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
+    job_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
     """
     Report: Top skills frequency across all candidates for a specific job
@@ -25,7 +32,9 @@ async def get_skills_frequency(
     # Verify job exists
     job = db.query(Job).filter(Job.id == job_id).first()
     if not job:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Job not found"
+        )
 
     # Get all candidates
     candidates = db.query(Candidate).filter(Candidate.parse_status == "success").all()
@@ -47,7 +56,9 @@ async def get_skills_frequency(
                 "skill": skill,
                 "count": count,
                 "percentage": (
-                    round((count / total_candidates) * 100, 2) if total_candidates > 0 else 0
+                    round((count / total_candidates) * 100, 2)
+                    if total_candidates > 0
+                    else 0
                 ),
             }
         )
@@ -73,14 +84,20 @@ async def get_pipeline_stats(
 
     # Parse statistics
     parsed_successfully = (
-        db.query(func.count(Candidate.id)).filter(Candidate.parse_status == "success").scalar()
+        db.query(func.count(Candidate.id))
+        .filter(Candidate.parse_status == "success")
+        .scalar()
     )
 
     parse_failed = (
-        db.query(func.count(Candidate.id)).filter(Candidate.parse_status == "failed").scalar()
+        db.query(func.count(Candidate.id))
+        .filter(Candidate.parse_status == "failed")
+        .scalar()
     )
 
-    success_rate = (parsed_successfully / total_candidates * 100) if total_candidates > 0 else 0
+    success_rate = (
+        (parsed_successfully / total_candidates * 100) if total_candidates > 0 else 0
+    )
 
     # Job statistics
     total_jobs = db.query(func.count(Job.id)).scalar()
@@ -128,6 +145,12 @@ async def get_audit_logs(
     current_user: User = Depends(get_current_admin_user),
 ):
     """Get system audit logs (admin only)"""
-    logs = db.query(AuditLog).order_by(AuditLog.timestamp.desc()).offset(skip).limit(limit).all()
+    logs = (
+        db.query(AuditLog)
+        .order_by(AuditLog.timestamp.desc())
+        .offset(skip)
+        .limit(limit)
+        .all()
+    )
 
     return logs

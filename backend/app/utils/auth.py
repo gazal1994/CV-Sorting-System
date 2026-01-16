@@ -37,10 +37,14 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
-        expire = datetime.utcnow() + timedelta(minutes=settings.access_token_expire_minutes)
+        expire = datetime.utcnow() + timedelta(
+            minutes=settings.access_token_expire_minutes
+        )
 
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, settings.secret_key, algorithm=settings.algorithm)
+    encoded_jwt = jwt.encode(
+        to_encode, settings.secret_key, algorithm=settings.algorithm
+    )
 
     return encoded_jwt
 
@@ -48,24 +52,29 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
 def decode_access_token(token: str) -> TokenData:
     """Decode and validate a JWT token"""
     try:
-        payload = jwt.decode(token, settings.secret_key, algorithms=[settings.algorithm])
+        payload = jwt.decode(
+            token, settings.secret_key, algorithms=[settings.algorithm]
+        )
         email: str = payload.get("sub")
 
         if email is None:
             raise HTTPException(
-                status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials"
+                status_code=status.HTTP_401_UNAUTHORIZED,
+                detail="Could not validate credentials",
             )
 
         return TokenData(email=email)
 
     except JWTError:
         raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED, detail="Could not validate credentials"
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Could not validate credentials",
         )
 
 
 async def get_current_user(
-    credentials: HTTPAuthorizationCredentials = Depends(security), db: Session = Depends(get_db)
+    credentials: HTTPAuthorizationCredentials = Depends(security),
+    db: Session = Depends(get_db),
 ) -> User:
     """Get the current authenticated user"""
     token = credentials.credentials
@@ -74,18 +83,26 @@ async def get_current_user(
     user = db.query(User).filter(User.email == token_data.email).first()
 
     if user is None:
-        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED, detail="User not found"
+        )
 
     if not user.is_active:
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Inactive user")
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Inactive user"
+        )
 
     return user
 
 
-async def get_current_admin_user(current_user: User = Depends(get_current_user)) -> User:
+async def get_current_admin_user(
+    current_user: User = Depends(get_current_user),
+) -> User:
     """Verify that the current user is an admin"""
     if current_user.role != "HR_ADMIN":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions"
+        )
 
     return current_user
 
