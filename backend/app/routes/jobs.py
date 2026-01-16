@@ -17,7 +17,7 @@ router = APIRouter(prefix="/api/jobs", tags=["Jobs"])
 async def create_job(
     job_data: JobCreate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ):
     """Create a new job position"""
     job = Job(
@@ -28,13 +28,13 @@ async def create_job(
         minimum_experience=job_data.minimum_experience,
         keywords=job_data.keywords,
         status=job_data.status,
-        created_by=current_user.id
+        created_by=current_user.id,
     )
-    
+
     db.add(job)
     db.commit()
     db.refresh(job)
-    
+
     # Log action
     AuditService.log_action(
         db=db,
@@ -42,9 +42,9 @@ async def create_job(
         user_id=current_user.id,
         entity_type="job",
         entity_id=job.id,
-        details={"title": job.title}
+        details={"title": job.title},
     )
-    
+
     return job
 
 
@@ -53,7 +53,7 @@ async def get_jobs(
     skip: int = 0,
     limit: int = 100,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ):
     """Get all job positions"""
     jobs = db.query(Job).offset(skip).limit(limit).all()
@@ -62,19 +62,14 @@ async def get_jobs(
 
 @router.get("/{job_id}", response_model=JobResponse)
 async def get_job(
-    job_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    job_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
 ):
     """Get a specific job position"""
     job = db.query(Job).filter(Job.id == job_id).first()
-    
+
     if not job:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Job not found"
-        )
-    
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+
     return job
 
 
@@ -83,62 +78,46 @@ async def update_job(
     job_id: int,
     job_data: JobUpdate,
     db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    current_user: User = Depends(get_current_user),
 ):
     """Update a job position"""
     job = db.query(Job).filter(Job.id == job_id).first()
-    
+
     if not job:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Job not found"
-        )
-    
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+
     # Update fields
     update_data = job_data.model_dump(exclude_unset=True)
     for field, value in update_data.items():
         setattr(job, field, value)
-    
+
     db.commit()
     db.refresh(job)
-    
+
     # Log action
     AuditService.log_action(
-        db=db,
-        action="job_updated",
-        user_id=current_user.id,
-        entity_type="job",
-        entity_id=job.id
+        db=db, action="job_updated", user_id=current_user.id, entity_type="job", entity_id=job.id
     )
-    
+
     return job
 
 
 @router.delete("/{job_id}")
 async def delete_job(
-    job_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user)
+    job_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
 ):
     """Delete a job position"""
     job = db.query(Job).filter(Job.id == job_id).first()
-    
+
     if not job:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND,
-            detail="Job not found"
-        )
-    
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Job not found")
+
     db.delete(job)
     db.commit()
-    
+
     # Log action
     AuditService.log_action(
-        db=db,
-        action="job_deleted",
-        user_id=current_user.id,
-        entity_type="job",
-        entity_id=job_id
+        db=db, action="job_deleted", user_id=current_user.id, entity_type="job", entity_id=job_id
     )
-    
+
     return {"message": "Job deleted successfully"}

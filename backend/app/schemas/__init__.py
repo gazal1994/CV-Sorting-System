@@ -46,7 +46,7 @@ class UserResponse(UserBase):
     id: int
     is_active: bool
     created_at: datetime
-    
+
     class Config:
         from_attributes = True
 
@@ -102,7 +102,7 @@ class CandidateResponse(CandidateBase):
     parse_error: Optional[str] = None
     created_at: datetime
     updated_at: Optional[datetime] = None
-    
+
     class Config:
         from_attributes = True
 
@@ -137,7 +137,7 @@ class JobResponse(JobBase):
     created_by: int
     created_at: datetime
     updated_at: Optional[datetime] = None
-    
+
     class Config:
         from_attributes = True
 
@@ -156,10 +156,10 @@ class CandidateScoreResponse(BaseModel):
     matched_skills: List[str] = []
     missing_skills: List[str] = []
     created_at: datetime
-    
+
     # Include candidate details
     candidate: CandidateResponse
-    
+
     class Config:
         from_attributes = True
 
@@ -208,7 +208,7 @@ class AuditLogResponse(BaseModel):
     details: Optional[Dict[str, Any]] = None
     ip_address: Optional[str] = None
     timestamp: datetime
-    
+
     class Config:
         from_attributes = True
 

@@ -32,17 +32,17 @@ def test_estimate_experience(parser):
     text1 = "5 years of experience in software development"
     years1 = parser._estimate_experience(text1)
     assert years1 == 5.0
-    
+
     # Test year range
     text2 = "Worked from 2018 to 2022"
     years2 = parser._estimate_experience(text2)
     assert years2 == 4.0
-    
+
     # Test another pattern
     text3 = "Experience: 3 years"
     years3 = parser._estimate_experience(text3)
     assert years3 == 3.0
-    
+
     # Test no experience found
     text4 = "Just graduated"
     years4 = parser._estimate_experience(text4)
@@ -55,12 +55,12 @@ def test_extract_skills(parser):
     parser.skills_taxonomy = {
         "technical": ["Python", "JavaScript", "Docker"],
         "soft": ["Leadership", "Communication"],
-        "languages": ["English"]
+        "languages": ["English"],
     }
-    
+
     text = "Experienced with Python, JavaScript, and Docker"
     skills = parser._extract_skills(text)
-    
+
     assert "Python" in skills
     assert "JavaScript" in skills
     assert "Docker" in skills

@@ -11,7 +11,7 @@ from app.routes import auth, candidates, jobs, matching, reports, users
 app = FastAPI(
     title=settings.app_name,
     version=settings.version,
-    description="CV Sorting & Candidate Recommendation System"
+    description="CV Sorting & Candidate Recommendation System",
 )
 
 # Configure CORS
@@ -44,7 +44,7 @@ async def root():
     return {
         "message": "CV Sorting & Candidate Recommendation System API",
         "version": settings.version,
-        "docs": "/docs"
+        "docs": "/docs",
     }
 
 

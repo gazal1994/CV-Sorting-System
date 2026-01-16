@@ -14,43 +14,43 @@ from app.utils.auth import get_password_hash
 def seed_users(db):
     """Create initial users"""
     print("Creating users...")
-    
+
     users = [
         User(
             email="admin@example.com",
             full_name="Admin User",
             role="HR_ADMIN",
             hashed_password=get_password_hash("admin123"),
-            is_active=True
+            is_active=True,
         ),
         User(
             email="recruiter@example.com",
             full_name="Recruiter User",
             role="HR_RECRUITER",
             hashed_password=get_password_hash("recruiter123"),
-            is_active=True
-        )
+            is_active=True,
+        ),
     ]
-    
+
     for user in users:
         existing = db.query(User).filter(User.email == user.email).first()
         if not existing:
             db.add(user)
             print(f"  Created user: {user.email}")
-    
+
     db.commit()
 
 
 def seed_jobs(db):
     """Create sample job positions"""
     print("Creating sample jobs...")
-    
+
     # Get admin user
     admin = db.query(User).filter(User.email == "admin@example.com").first()
     if not admin:
         print("  Admin user not found, skipping jobs")
         return
-    
+
     jobs = [
         Job(
             title="Senior Python Developer",
@@ -60,7 +60,7 @@ def seed_jobs(db):
             minimum_experience=5.0,
             keywords=["backend", "API", "microservices", "scalable"],
             status="active",
-            created_by=admin.id
+            created_by=admin.id,
         ),
         Job(
             title="Full Stack Developer",
@@ -70,7 +70,7 @@ def seed_jobs(db):
             minimum_experience=3.0,
             keywords=["full stack", "web development", "React", "Node"],
             status="active",
-            created_by=admin.id
+            created_by=admin.id,
         ),
         Job(
             title="DevOps Engineer",
@@ -80,7 +80,7 @@ def seed_jobs(db):
             minimum_experience=4.0,
             keywords=["devops", "cloud", "infrastructure", "automation"],
             status="active",
-            created_by=admin.id
+            created_by=admin.id,
         ),
         Job(
             title="Data Scientist",
@@ -90,7 +90,7 @@ def seed_jobs(db):
             minimum_experience=3.0,
             keywords=["data science", "ML", "analytics", "predictive models"],
             status="active",
-            created_by=admin.id
+            created_by=admin.id,
         ),
         Job(
             title="Junior Web Developer",
@@ -100,16 +100,16 @@ def seed_jobs(db):
             minimum_experience=1.0,
             keywords=["frontend", "web", "junior", "entry-level"],
             status="active",
-            created_by=admin.id
-        )
+            created_by=admin.id,
+        ),
     ]
-    
+
     for job in jobs:
         existing = db.query(Job).filter(Job.title == job.title).first()
         if not existing:
             db.add(job)
             print(f"  Created job: {job.title}")
-    
+
     db.commit()
 
 
@@ -117,9 +117,9 @@ def main():
     """Main seed function"""
     print("Initializing database...")
     init_db()
-    
+
     db = SessionLocal()
-    
+
     try:
         seed_users(db)
         seed_jobs(db)
@@ -127,11 +127,11 @@ def main():
         print("\nYou can now login with:")
         print("  Admin: admin@example.com / admin123")
         print("  Recruiter: recruiter@example.com / recruiter123")
-    
+
     except Exception as e:
         print(f"\nError during seeding: {str(e)}")
         db.rollback()
-    
+
     finally:
         db.close()
 

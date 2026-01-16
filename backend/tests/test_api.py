@@ -35,21 +35,21 @@ client = TestClient(app)
 def setup_database():
     """Create test database before each test and drop after"""
     Base.metadata.create_all(bind=engine)
-    
+
     # Create test user
     db = TestingSessionLocal()
     test_user = User(
         email="test@example.com",
         full_name="Test User",
         role="HR_RECRUITER",
-        hashed_password=get_password_hash("testpassword")
+        hashed_password=get_password_hash("testpassword"),
     )
     db.add(test_user)
     db.commit()
     db.close()
-    
+
     yield
-    
+
     Base.metadata.drop_all(bind=engine)
 
 
@@ -70,8 +70,7 @@ def test_health_check():
 def test_login_success():
     """Test successful login"""
     response = client.post(
-        "/api/auth/login",
-        json={"email": "test@example.com", "password": "testpassword"}
+        "/api/auth/login", json={"email": "test@example.com", "password": "testpassword"}
     )
     assert response.status_code == 200
     assert "access_token" in response.json()
@@ -81,8 +80,7 @@ def test_login_success():
 def test_login_failure():
     """Test failed login with wrong password"""
     response = client.post(
-        "/api/auth/login",
-        json={"email": "test@example.com", "password": "wrongpassword"}
+        "/api/auth/login", json={"email": "test@example.com", "password": "wrongpassword"}
     )
     assert response.status_code == 401
 
@@ -97,16 +95,12 @@ def test_get_candidates_authorized():
     """Test getting candidates with authentication"""
     # Login first
     login_response = client.post(
-        "/api/auth/login",
-        json={"email": "test@example.com", "password": "testpassword"}
+        "/api/auth/login", json={"email": "test@example.com", "password": "testpassword"}
     )
     token = login_response.json()["access_token"]
-    
+
     # Get candidates
-    response = client.get(
-        "/api/candidates",
-        headers={"Authorization": f"Bearer {token}"}
-    )
+    response = client.get("/api/candidates", headers={"Authorization": f"Bearer {token}"})
     assert response.status_code == 200
     assert isinstance(response.json(), list)
 
@@ -115,11 +109,10 @@ def test_create_job():
     """Test creating a job"""
     # Login first
     login_response = client.post(
-        "/api/auth/login",
-        json={"email": "test@example.com", "password": "testpassword"}
+        "/api/auth/login", json={"email": "test@example.com", "password": "testpassword"}
     )
     token = login_response.json()["access_token"]
-    
+
     # Create job
     job_data = {
         "title": "Python Developer",
@@ -127,15 +120,11 @@ def test_create_job():
         "required_skills": ["Python", "FastAPI"],
         "nice_to_have": ["Docker"],
         "minimum_experience": 2.0,
-        "keywords": ["backend", "API"]
+        "keywords": ["backend", "API"],
     }
-    
-    response = client.post(
-        "/api/jobs",
-        json=job_data,
-        headers={"Authorization": f"Bearer {token}"}
-    )
-    
+
+    response = client.post("/api/jobs", json=job_data, headers={"Authorization": f"Bearer {token}"})
+
     assert response.status_code == 201
     assert response.json()["title"] == "Python Developer"
 
@@ -144,17 +133,15 @@ def test_get_pipeline_stats():
     """Test getting pipeline statistics"""
     # Login first
     login_response = client.post(
-        "/api/auth/login",
-        json={"email": "test@example.com", "password": "testpassword"}
+        "/api/auth/login", json={"email": "test@example.com", "password": "testpassword"}
     )
     token = login_response.json()["access_token"]
-    
+
     # Get stats
     response = client.get(
-        "/api/reports/pipeline-stats",
-        headers={"Authorization": f"Bearer {token}"}
+        "/api/reports/pipeline-stats", headers={"Authorization": f"Bearer {token}"}
     )
-    
+
     assert response.status_code == 200
     data = response.json()
     assert "total_candidates" in data

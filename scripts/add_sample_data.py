@@ -4,75 +4,80 @@ import os
 import sys
 
 # Add backend to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from app.database import SessionLocal
 from app.models import Candidate, Job, User
 from app.utils.cv_parser import CVParser
 from datetime import datetime
 
+
 def add_sample_cvs():
     """Parse and add sample CV files to database"""
     db = SessionLocal()
     parser = CVParser()
-    
-    sample_cvs_dir = os.path.join(os.path.dirname(__file__), '..', 'backend', 'storage', 'sample_cvs')
-    
+
+    sample_cvs_dir = os.path.join(
+        os.path.dirname(__file__), "..", "backend", "storage", "sample_cvs"
+    )
+
     if not os.path.exists(sample_cvs_dir):
         print(f"❌ Sample CVs directory not found: {sample_cvs_dir}")
         return
-    
-    cv_files = [f for f in os.listdir(sample_cvs_dir) if f.endswith('.txt')]
-    
+
+    cv_files = [f for f in os.listdir(sample_cvs_dir) if f.endswith(".txt")]
+
     if not cv_files:
         print("❌ No sample CV files found")
         return
-    
+
     print(f"\n📄 Found {len(cv_files)} sample CV files")
-    
+
     for cv_file in cv_files:
         file_path = os.path.join(sample_cvs_dir, cv_file)
-        
+
         try:
             # Parse CV
-            result = parser.parse_file(file_path, 'txt')
-            
-            if result['success']:
-                data = result['data']
-                
+            result = parser.parse_file(file_path, "txt")
+
+            if result["success"]:
+                data = result["data"]
+
                 # Check if candidate already exists
-                existing = db.query(Candidate).filter(Candidate.email == data['email']).first()
+                existing = db.query(Candidate).filter(Candidate.email == data["email"]).first()
                 if existing:
                     print(f"⚠️  Skipping {cv_file} - Email already exists")
                     continue
-                
+
                 # Create candidate record
                 candidate = Candidate(
-                    name=data['name'],
-                    email=data['email'],
-                    phone=data['phone'],
-                    education=data['education'],
-                    years_of_experience=data['years_of_experience'],
-                    skills=data['skills'],
-                    languages=data['languages'],
-                    raw_text=data['raw_text'],
-                    parse_status='success',
+                    name=data["name"],
+                    email=data["email"],
+                    phone=data["phone"],
+                    education=data["education"],
+                    years_of_experience=data["years_of_experience"],
+                    skills=data["skills"],
+                    languages=data["languages"],
+                    raw_text=data["raw_text"],
+                    parse_status="success",
                     file_path=file_path,
                     file_name=cv_file,
-                    file_type='txt'
+                    file_type="txt",
                 )
-                
+
                 db.add(candidate)
                 db.commit()
-                
-                print(f"✅ Added: {data['name']} ({data['email']}) - {len(data['skills'])} skills, {data['years_of_experience']} years exp")
+
+                print(
+                    f"✅ Added: {data['name']} ({data['email']}) - {len(data['skills'])} skills, {data['years_of_experience']} years exp"
+                )
             else:
                 print(f"❌ Failed to parse {cv_file}: {result.get('error')}")
-                
+
         except Exception as e:
             print(f"❌ Error processing {cv_file}: {str(e)}")
             db.rollback()
-    
+
     db.close()
     print("\n✅ Sample CVs import completed\n")
 
@@ -80,14 +85,14 @@ def add_sample_cvs():
 def add_sample_jobs():
     """Add sample job positions to database"""
     db = SessionLocal()
-    
+
     # Get first user (admin or recruiter)
     user = db.query(User).first()
     if not user:
         print("❌ No users found. Please run seed_data.py first")
         db.close()
         return
-    
+
     sample_jobs = [
         {
             "title": "Senior Full Stack Developer",
@@ -96,7 +101,7 @@ def add_sample_jobs():
             "nice_to_have": ["AWS", "Kubernetes", "TypeScript", "FastAPI"],
             "minimum_experience": 5,
             "keywords": ["full stack", "web development", "microservices", "agile", "ci/cd"],
-            "status": "active"
+            "status": "active",
         },
         {
             "title": "Python Backend Engineer",
@@ -105,7 +110,7 @@ def add_sample_jobs():
             "nice_to_have": ["Docker", "Redis", "Elasticsearch", "pytest"],
             "minimum_experience": 3,
             "keywords": ["backend", "api", "microservices", "database", "testing"],
-            "status": "active"
+            "status": "active",
         },
         {
             "title": "Frontend Developer (React)",
@@ -114,7 +119,7 @@ def add_sample_jobs():
             "nice_to_have": ["TypeScript", "Tailwind CSS", "Next.js", "State Management"],
             "minimum_experience": 2,
             "keywords": ["frontend", "ui", "responsive design", "web", "user experience"],
-            "status": "active"
+            "status": "active",
         },
         {
             "title": "DevOps Engineer",
@@ -123,7 +128,7 @@ def add_sample_jobs():
             "nice_to_have": ["Terraform", "Ansible", "Prometheus", "Grafana"],
             "minimum_experience": 4,
             "keywords": ["devops", "cloud", "automation", "infrastructure", "monitoring"],
-            "status": "active"
+            "status": "active",
         },
         {
             "title": "Junior JavaScript Developer",
@@ -132,35 +137,33 @@ def add_sample_jobs():
             "nice_to_have": ["React", "Node.js", "TypeScript"],
             "minimum_experience": 1,
             "keywords": ["javascript", "web development", "junior", "frontend", "learning"],
-            "status": "active"
-        }
+            "status": "active",
+        },
     ]
-    
+
     print(f"\n💼 Adding {len(sample_jobs)} sample job positions...")
-    
+
     for job_data in sample_jobs:
         try:
             # Check if job already exists
-            existing = db.query(Job).filter(Job.title == job_data['title']).first()
+            existing = db.query(Job).filter(Job.title == job_data["title"]).first()
             if existing:
                 print(f"⚠️  Skipping '{job_data['title']}' - Already exists")
                 continue
-            
-            job = Job(
-                **job_data,
-                created_by=user.id,
-                created_at=datetime.utcnow()
-            )
-            
+
+            job = Job(**job_data, created_by=user.id, created_at=datetime.utcnow())
+
             db.add(job)
             db.commit()
-            
-            print(f"✅ Added: {job_data['title']} (requires {len(job_data['required_skills'])} skills, {job_data['minimum_experience']}+ years)")
-            
+
+            print(
+                f"✅ Added: {job_data['title']} (requires {len(job_data['required_skills'])} skills, {job_data['minimum_experience']}+ years)"
+            )
+
         except Exception as e:
             print(f"❌ Error adding job '{job_data['title']}': {str(e)}")
             db.rollback()
-    
+
     db.close()
     print("\n✅ Sample jobs import completed\n")
 
@@ -169,10 +172,10 @@ if __name__ == "__main__":
     print("=" * 60)
     print("🎯 CV SORTING SYSTEM - SAMPLE DATA IMPORT")
     print("=" * 60)
-    
+
     add_sample_cvs()
     add_sample_jobs()
-    
+
     print("=" * 60)
     print("✅ All sample data imported successfully!")
     print("=" * 60)
